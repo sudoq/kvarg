@@ -3,6 +3,7 @@ A simple key-value service
 
 ##API
 Send GET requests to the following end points to get and set values
+
 |API endpoint|Description|
 |------------|-----------|
 |/{key}/{value}|Sets the value for provided key|
