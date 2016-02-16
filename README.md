@@ -6,8 +6,8 @@ Send GET requests to the following end points to get and set values
 
 |API endpoint|Description|
 |------------|-----------|
-|/{key}/{value}|Sets the value for provided key|
-|/{key}|Gets the value for provided key|
+|`/{key}/{value}`|Sets the value for provided key|
+|`/{key}`|Gets the value for provided key|
 
 
 ##Running with docker
