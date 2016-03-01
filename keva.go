@@ -26,6 +26,12 @@ func init() {
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
+
+	err := redisClient.Ping().Err()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 }
 
 func main() {
