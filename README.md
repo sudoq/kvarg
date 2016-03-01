@@ -10,8 +10,19 @@ Send GET requests to the following end points to get and set values
 |`/{key}`|Gets the value for provided key|
 
 
+##Running with docker-compose
+```
+docker-compose up -d
+```
+
 ##Running with docker
 ```
 docker run --name redis -d redis
-docker run --port 4711:8080 --link redis:db -i -t sudoq/keva
+docker run --port 4711:8080 --link redis:db sudoq/keva
+```
+
+##Example usage
+```
+curl http://localhost:4711/exampleKey/exampleValue
+curl http://localhost:4711/exampleKey
 ```
