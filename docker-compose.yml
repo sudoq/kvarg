@@ -1,0 +1,8 @@
+web:
+  build: .
+  ports:
+    - "4711:8080"
+  links:
+    - redis:db
+redis:
+  image: redis
