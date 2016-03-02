@@ -38,7 +38,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/{key}", readHandler)
 	r.HandleFunc("/{key}/{value}", writeHandler)
-	fmt.Println("keva version 0.0.1")
+	fmt.Println("kvarg version 0.0.1")
 	http.ListenAndServe(":8080", r)
 }
 

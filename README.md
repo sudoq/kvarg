@@ -1,4 +1,4 @@
-#Keva
+#Kvarg
 A simple key-value service
 
 ##API
@@ -18,7 +18,7 @@ docker-compose up -d
 ##Running with docker
 ```
 docker run --name redis -d redis
-docker run --port 4711:8080 --link redis:db sudoq/keva
+docker run --port 4711:8080 --link redis:db sudoq/kvarg
 ```
 
 ##Example usage
