@@ -2,7 +2,7 @@
 A simple key-value service
 
 ##API
-Send GET requests to the following end points to get and set values
+Send GET requests to the following endpoints to get and set values
 
 |API endpoint|Description|
 |------------|-----------|
