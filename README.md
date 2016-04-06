@@ -1,6 +1,7 @@
 #Kvarg
 A simple key-value service that uses redis for storage.
-Can be used as a simple interface to redis but also for testing service discovery, configuration management, etc.
+
+Can be used as a simple interface to redis but also for service discovery and shared configuration.
 
 ##Usage
 The following example sets a key and then retrieves it
