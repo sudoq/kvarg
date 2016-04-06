@@ -36,8 +36,8 @@ func init() {
 
 func main() {
 	r := mux.NewRouter()
-	r.HandleFunc("/{key}", readHandler)
-	r.HandleFunc("/{key}/{value}", writeHandler)
+	r.HandleFunc("/{key}", readHandler).Methods("GET")
+	r.HandleFunc("/{key}", writeHandler).Methods("PUT")
 	fmt.Println("kvarg version 0.0.1")
 	http.ListenAndServe(":8080", r)
 }
@@ -48,6 +48,7 @@ func readHandler(w http.ResponseWriter, r *http.Request) {
 	value, err := redisClient.Get(key).Result()
 	if err != nil {
 		w.WriteHeader(404)
+		w.Write([]byte(http.StatusText(404)))
 		return
 	}
 	w.WriteHeader(200)
@@ -55,14 +56,27 @@ func readHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func writeHandler(w http.ResponseWriter, r *http.Request) {
+	var err error
 	vars := mux.Vars(r)
 	key := vars["key"]
-	value := vars["value"]
-	err := redisClient.Set(key, value, 0).Err()
+	err = r.ParseForm()
+	if err != nil {
+		w.WriteHeader(400)
+		w.Write([]byte(http.StatusText(400)))
+		return
+	}
+	if _, ok := r.PostForm["value"]; !ok {
+		w.WriteHeader(400)
+		w.Write([]byte(http.StatusText(400)))
+		return
+	}
+	value := r.PostForm["value"][0]
+	err = redisClient.Set(key, value, 0).Err()
 	if err != nil {
 		w.WriteHeader(500)
+		w.Write([]byte(http.StatusText(500)))
 		return
 	}
 	w.WriteHeader(200)
-	w.Write([]byte("OK"))
+	w.Write([]byte(http.StatusText(200)))
 }
