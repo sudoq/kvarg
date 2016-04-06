@@ -1,14 +1,13 @@
 #Kvarg
-A simple key-value service
+A simple key-value service that uses redis for storage.
+Can be used as a simple interface to redis but also for testing service discovery, configuration management, etc.
 
-##API
-Send GET requests to the following endpoints to get and set values
-
-|API endpoint|Description|
-|------------|-----------|
-|`/{key}/{value}`|Sets the value for provided key|
-|`/{key}`|Gets the value for provided key|
-
+##Usage
+The following example sets a key and then retrieves it
+```
+curl -XPUT http://127.0.0.1:4711/mykey -d value="kvarg for breakfast"
+curl http://127.0.0.1:4711/mykey
+```
 
 ##Running with docker-compose
 ```
@@ -19,10 +18,4 @@ docker-compose up -d
 ```
 docker run --name redis -d redis
 docker run --port 4711:8080 --link redis:db sudoq/kvarg
-```
-
-##Example usage
-```
-curl http://localhost:4711/exampleKey/exampleValue
-curl http://localhost:4711/exampleKey
 ```
