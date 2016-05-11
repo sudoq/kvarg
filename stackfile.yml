@@ -1,0 +1,17 @@
+kvarg:
+  image: 'sudoq/kvarg:latest'
+  expose:
+    - '8080'
+  links:
+    - 'redis:db'
+  target_num_containers: 2
+lb:
+  image: 'dockercloud/haproxy:1.2.1'
+  links:
+    - kvarg
+  ports:
+    - '80:80'
+  roles:
+    - global
+redis:
+  image: 'redis:latest'
