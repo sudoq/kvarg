@@ -38,7 +38,7 @@ func init() {
 		if err != nil {
 			fmt.Println(err)
 			tries += 1
-			time.Sleep(time.Second * math.Pow10(tries))
+			time.Sleep(time.Second * time.Duration(math.Pow10(tries)))
 			continue
 		}
 		connOk = true
