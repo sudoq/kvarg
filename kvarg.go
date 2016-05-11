@@ -31,14 +31,14 @@ func init() {
 
 	var err error
 	connOk := false
-	tries := 0
-	maxTries := 5
+	tries := 0.0
+	maxTries := 5.0
 	for !connOk && tries < maxTries {
 		err = redisClient.Ping().Err()
 		if err != nil {
 			fmt.Println(err)
 			tries += 1
-			time.Sleep(time.Second * time.Duration(math.Pow10(tries)))
+			time.Sleep(time.Second * time.Duration(math.Pow(2.0, tries)))
 			continue
 		}
 		connOk = true
