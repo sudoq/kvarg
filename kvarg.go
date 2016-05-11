@@ -30,10 +30,9 @@ func init() {
 	})
 
 	var err error
-	connOk := false
 	tries := 0.0
 	maxTries := 5.0
-	for !connOk && tries < maxTries {
+	for tries < maxTries {
 		err = redisClient.Ping().Err()
 		if err != nil {
 			fmt.Println(err)
@@ -41,9 +40,9 @@ func init() {
 			time.Sleep(time.Second * time.Duration(math.Pow(2.0, tries)))
 			continue
 		}
-		connOk = true
+		return // Success
 	}
-	os.Exit(1)
+	os.Exit(1) // Failure
 }
 
 func main() {
