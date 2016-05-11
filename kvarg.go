@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	redis "gopkg.in/redis.v3"
+	"math"
 	"net/http"
 	"os"
+	"time"
 )
 
 var redisClient *redis.Client
@@ -27,11 +29,21 @@ func init() {
 		DB:       0,  // use default DB
 	})
 
-	err := redisClient.Ping().Err()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+	var err error
+	connOk := false
+	tries := 0
+	maxTries := 5
+	for !connOk && tries < maxTries {
+		err = redisClient.Ping().Err()
+		if err != nil {
+			fmt.Println(err)
+			tries += 1
+			time.Sleep(time.Second * math.Pow10(tries))
+			continue
+		}
+		connOk = true
 	}
+	os.Exit(1)
 }
 
 func main() {
